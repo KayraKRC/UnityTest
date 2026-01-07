@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class CompileTest : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    void Start()
-    {
-        Debug.Log("Compile test başarılı");
-    }
+    public float moveSpeed = 5f;
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Space basıldı");
-        }
+        float horizontal = Input.GetAxisRaw("Horizontal");
+
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        Vector3 inputDirection = new Vector3(horizontal, 0f, vertical);
+
+        inputDirection = inputDirection.normalized;
+
+        Vector3 movement = inputDirection * moveSpeed * Time.deltaTime;
+
+        transform.Translate(movement, Space.World);
     }
 }
-
